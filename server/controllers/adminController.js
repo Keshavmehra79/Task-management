@@ -24,14 +24,14 @@ const createUser = async (req, res) => {
             {
                 service: 'gmail',
                 auth: {
-                    user: 'bpl.trainer07@gmail.com',
-                    pass: 'drjw wtvw xsxm bcfp'
+                    user: process.env.MY_GMAIL,
+                    pass: process.env.PASS_KEY
                 }
             }
         );
 
     let mailDetails = {
-        from: 'bpl.trainer07@gmail.com',
+        from: process.env.MY_GMAIL,
         to: email,
         subject: 'Employee Registration ID deatils',
         text: `Greetings \n Welcome : ${name}! \n
