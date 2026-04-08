@@ -1,4 +1,4 @@
-
+require("dotenv").config();
 const express=require("express");
 const app=express();
 const adminRouter=require("./routes/adminRoute")
@@ -10,15 +10,14 @@ app.use(cors())
 // Body-parser middleware
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
-mongoose.connect("mongodb://127.0.0.1:27017/task").then(()=>{
+mongoose.connect(process.env.DATABASE_URL).then(()=>{
     console.log("Db connected succefully");
 })  
 
 app.use("/admin",adminRouter);
 app.use("/user",userRouter);
 
-
-app.listen(9000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("server run on 9000 port ");
     
 })

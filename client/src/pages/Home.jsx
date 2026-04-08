@@ -2,10 +2,14 @@
 import { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const Home = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [usertype, setUserType] = useState("");
+
+
 
   const navigate = useNavigate();
 
@@ -23,11 +27,16 @@ const Home = () => {
      console.log(response);
      } catch (error) {
          console.log(error);
+         toast.error("Something went wrong")
      }
 
    }else 
    {
-    
+    try {
+      
+    } catch (error) {
+      
+    }
      let api=`${import.meta.env.VITE_API_URL}/user/userlogin`;
      const response = await axios.post(api, {email, password});
      console.log(response.data.msg);

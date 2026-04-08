@@ -8,4 +8,5 @@ route.get("/getuserdata",  AdminController.getUserData);
 route.post("/assigntask",  AdminController.assignTask);
 route.get("/gettaskreport",  AdminController.getTaskReport);
 
+
 module.exports = route;
