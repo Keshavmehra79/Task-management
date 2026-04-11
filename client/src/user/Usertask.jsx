@@ -78,7 +78,7 @@ const UserTask = () => {
 
       {/* Modal */}
       {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-300 bg-opacity-40">
           <div className="bg-white p-6 rounded-2xl w-96 shadow-lg">
 
             <h3 className="text-xl font-semibold mb-4">

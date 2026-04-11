@@ -84,7 +84,7 @@ const AssignTask = () => {
 
       {/* Modal */}
       {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-300 bg-opacity-40">
           <div className="bg-white rounded-2xl shadow-lg w-96 p-6">
 
             <h3 className="text-xl font-semibold mb-4">
