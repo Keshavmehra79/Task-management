@@ -21,29 +21,31 @@ const Home = () => {
        let api=`${import.meta.env.VITE_API_URL}/admin/adminlogin`;
      const response = await axios.post(api, {email, password});
      localStorage.setItem("admin", response.data.admin.email);
+     toast.success("Login succefully")
+
         navigate("/admindashboard");
      
       
      console.log(response);
      } catch (error) {
-         console.log(error);
-         toast.error("Something went wrong")
+         toast.error(error.response.data.msg)
      }
 
    }else 
    {
     try {
-      
-    } catch (error) {
-      
-    }
-     let api=`${import.meta.env.VITE_API_URL}/user/userlogin`;
+       let api=`${import.meta.env.VITE_API_URL}/user/userlogin`;
      const response = await axios.post(api, {email, password});
      console.log(response.data.msg);
      localStorage.setItem("username", response.data.user.name);
      localStorage.setItem("useremail", response.data.user.email);
      localStorage.setItem("userid", response.data.user._id);
+     toast.success("Login succefully")
         navigate("/userdashboard");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+    
 
    }
 

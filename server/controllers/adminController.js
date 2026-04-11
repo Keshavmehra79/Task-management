@@ -81,11 +81,33 @@ const getTaskReport=async(req, res) =>{
 }
 
 
+const getDashboardStats = async (req, res) => {
+  try {
+    const totalUsers = await UserModel.countDocuments();
+    const totalTasks = await TaskModel.countDocuments();
+
+    const completedTasks = await TaskModel.countDocuments({ taskstatus:"Fully Completed"});
+    
+    res.send({
+      totalUsers,
+      totalTasks,
+      completedTasks,
+      
+    });
+
+  } catch (error) {
+    res.status(500).send({ message: "Server Error" });
+
+  }
+};
+
+
 module.exports = {
     adminLogin,
     createUser,
     getUserData,
     assignTask,
-    getTaskReport
+    getTaskReport,
+    getDashboardStats
 }
 
