@@ -1,7 +1,8 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const UserDashBoard = () => {
   const username = localStorage.getItem("username");
+  const nav=useNavigate()
 
   return (
     <>
@@ -75,7 +76,7 @@ const UserDashBoard = () => {
             <div className="bg-green-500 text-white p-5 rounded-xl shadow">
               <h3 className="text-lg font-semibold">Action</h3>
                <button
-                    onClick={() => handleShow(key._id)}
+                    onClick={() => {nav("/userdashboard/yourtask")}}
                     className="bg-orange-600 text-white px-3 py-1 rounded-lg hover:cursor-pointer mt-3"
                   >
                     Send Report

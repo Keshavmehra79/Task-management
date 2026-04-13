@@ -9,6 +9,9 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const [usertype, setUserType] = useState("");
 
+  const googleLogin=()=>{
+       window.open("http://localhost:8000/auth/google", "_self");
+  }
 
 
   const navigate = useNavigate();
@@ -110,11 +113,34 @@ const Home = () => {
             {/* Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 hover:cursor-pointer"
             >
               Login
             </button>
 
+
+            <div className="flex items-center my-4">
+  <hr className="flex-grow border-gray-300" />
+  <span className="mx-2 text-gray-400 text-sm">OR</span>
+  <hr className="flex-grow border-gray-300" />
+</div>
+
+
+<button onClick={googleLogin} className="flex items-center justify-center gap-3 w-full py-2.5 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-100 transition duration-200 hover:cursor-pointer">
+  
+  {/* Google Icon */}
+  <img 
+    src="https://www.svgrepo.com/show/475656/google-color.svg" 
+    alt="Google" 
+    className="w-5 h-5"
+  />
+
+  {/* Text */}
+  <span className="text-gray-700 font-medium">
+    Continue with Google
+  </span>
+
+</button>
           </form>
         </div>
       </div>
