@@ -1,99 +1,97 @@
-require("dotenv").config();
-const express=require("express");
-const app=express();
-const adminRouter=require("./routes/adminRoute")
-const userRouter=require("./routes/userLogin")
-const mongoose=require("mongoose");
-const cors=require("cors");
-const bodyparser=require("body-parser")
-const userDB = require("./models/googleuserModel")
-const session = require("express-session");
-const passport = require("passport");
+// require("dotenv").config();
+// const express=require("express");
+// const app=express();
+// const adminRouter=require("./routes/adminRoute")
+// const userRouter=require("./routes/userLogin")
+// const mongoose=require("mongoose");
+// const cors=require("cors");
+// const bodyparser=require("body-parser")
+// const userDB = require("./models/googleuserModel")
+// const session = require("express-session");
+// const passport = require("passport");
 
-mongoose.connect(process.env.DATABASE_URL).then(()=>{
-    console.log("Db connected succefully");
-})  
-
-
-const OAuth2Strategy = require("passport-google-oauth2").Strategy;
+// mongoose.connect(process.env.DATABASE_URL).then(()=>{
+//     console.log("Db connected succefully");
+// })  
 
 
-const clientid = process.env.CLIENT_ID;
-
-const clientsecret = process.env.CLIENT_SECRET;
-app.use(cors({
-    origin: "http://localhost:5173",
-    methods: "GET, POST, PUT, DELETE",
-    credentials: true
-}));
-
-app.use(express.json());
-// setup session
-app.use(session({
-    secret: "sachin1234",
-    resave: false,
-    saveUninitialized: true
-}))
-
-// setup passport
+// const OAuth2Strategy = require("passport-google-oauth2").Strategy;
 
 
-app.use(passport.initialize());
-app.use(passport.session());
+// const clientid = process.env.CLIENT_ID;
 
-passport.use(
+// const clientsecret = process.env.CLIENT_SECRET;
+// app.use(cors({
+//     origin: "http://localhost:5173",
+//     methods: "GET, POST, PUT, DELETE",
+//     credentials: true
+// }));
 
-new OAuth2Strategy({
-    clientID: clientid,
-    clientSecret: clientsecret,
-    callbackURL: "http://localhost:8000/auth/google/callback",
-    scope: ["profile", "email"]
-},
+// app.use(express.json());
+// // setup session
+// app.use(session({
+//     secret: "sachin1234",
+//     resave: false,
+//     saveUninitialized: true
+// }))
 
-        async (accessToken, refreshToken, profile, done) => {
-            console.log("profile", profile);
-
-            try {
-                let user = await userDB.findOne({ googleId: profile.id });
-                if (!user) {
-                    user = new userDB({
-                        googleId: profile.id,
-                        displayName: profile.displayName,
-                        email: profile.emails[0].value,
-                        image: profile.photos[0].value
-                    });
-                    await user.save();
-                }
-                return done(null, user);
-            } catch (error) {
-                return done(error, null)
-            }
-        }
-    )
-)
+// // setup passport
 
 
-passport.serializeUser((user, done) => {
-    done(null, user);
-})
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-passport.deserializeUser((user, done) => {
-    done(null, user);
-})
+// passport.use(
 
-//initialize google auth login
+// new OAuth2Strategy({
+//     clientID: clientid,
+//     clientSecret: clientsecret,
+//     callbackURL: "http://localhost:8000/auth/google/callback",
+//     scope: ["profile", "email"]
+// },
 
-app.get("/auth/google", passport.authenticate("google", {
-    scope: ["profile", "email"], prompt: "select_account"   // ✅ ADD THIS (fixes many OAuth issues)
-}));
+//         async (accessToken, refreshToken, profile, done) => {
+//             console.log("profile", profile);
 
-app.get("/auth/google/callback", passport.authenticate("google", {
-    successRedirect: "http://localhost:5173/admindashboard",
-    failureRedirect: "http://localhost:5173"
+//             try {
+//                 let user = await userDB.findOne({ googleId: profile.id });
+//                 if (!user) {
+//                     user = new userDB({
+//                         googleId: profile.id,
+//                         displayName: profile.displayName,
+//                         email: profile.emails[0].value,
+//                         image: profile.photos[0].value
+//                     });
+//                     await user.save();
+//                 }
+//                 return done(null, user);
+//             } catch (error) {
+//                 return done(error, null)
+//             }
+//         }
+//     )
+// )
 
-}))
 
+// passport.serializeUser((user, done) => {
+//     done(null, user);
+// })
 
+// passport.deserializeUser((user, done) => {
+//     done(null, user);
+// })
+
+// //initialize google auth login
+
+// app.get("/auth/google", passport.authenticate("google", {
+//     scope: ["profile", "email"], prompt: "select_account"   // ✅ ADD THIS (fixes many OAuth issues)
+// }));
+
+// app.get("/auth/google/callback", passport.authenticate("google", {
+//     successRedirect: "http://localhost:5173/admindashboard",
+//     failureRedirect: "http://localhost:5173"
+
+// }))
 
 
 
@@ -103,12 +101,25 @@ app.get("/auth/google/callback", passport.authenticate("google", {
 
 
 
-app.use("/admin",adminRouter);
-app.use("/user",userRouter);
 
-app.listen(process.env.PORT,()=>{
-    console.log("server run on 8000 port ");
+
+
+
+// app.use("/admin",adminRouter);
+// app.use("/user",userRouter);
+
+// app.listen(process.env.PORT,()=>{
+//     console.log("server run on 8000 port ");
     
+// })
+
+const eventEmitter=require("events");
+const event=new eventEmitter();
+
+event.on("doorbell",()=>{
+    console.log("Kon hai?")
 })
+
+event.emit("doorbell")
 
 
