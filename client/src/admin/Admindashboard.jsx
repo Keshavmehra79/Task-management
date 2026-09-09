@@ -1,15 +1,21 @@
 import axios from "axios";
 import React from "react";
 import { useState,useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+
+import { Link, Outlet, useNavigate } from "react-router-dom";
 const Admindashboard = () => {
+  const navigate=useNavigate()
   const [stats,setStats]=useState({
        totalUsers: 0,
   totalTasks: 0,
  completedTasks:0
   })
 
-  
+  //Logout
+    const LogOut=()=>{
+      localStorage.clear("admin")
+      navigate("/")
+  }
 
 const fetchStats = async () => {
   try {
@@ -33,9 +39,12 @@ console.log(stats)
     <div className="min-h-screen flex flex-col bg-gray-100">
 
       {/* Header */}
-      <div className="bg-purple-600 text-white py-4 px-6 shadow-md">
-        <h1 className="text-2xl font-bold text-center">Welcome To Admin Dashboard</h1>
+      <div className="flex justify-end bg-purple-600 text-white py-4 px-6 shadow-md">
+        <h1 className="text-2xl font-bold mr-120">Welcome To Admin Dashboard</h1>
+        {/* Logout button */}
+        <button onClick={LogOut} className="mr-7 hover:cursor-pointer bg-red-600 px-2 border-1px rounded-2xl">Logout</button>
       </div>
+        
 
       {/* Main Layout */}
       <div className="flex flex-grow">

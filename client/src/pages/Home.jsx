@@ -31,6 +31,7 @@ const Home = () => {
       
      console.log(response);
      } catch (error) {
+      console.log(error.response)
          toast.error(error.response.data.msg)
      }
 
